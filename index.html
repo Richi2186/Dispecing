@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>DISPEČING</title>
+
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<meta name="theme-color" content="#1565c0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- Knižnica na čítanie Excel súborov -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+
+body {
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#eef3f8,#dbe9f4);
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* HEADER */
+.header {
+    background:linear-gradient(135deg,#1565c0,#42a5f5);
+    color:white;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.header h1 {
+    margin:10px 0;
+    font-size:40px;
+}
+
+.logo {
+    width:60px;
+}
+
+#datetime {
+    margin-top:10px;
+    font-size:16px;
+    opacity:0.9;
+}
+
+/* STATS */
+#stats {
+    text-align:center;
+    margin-top:10px;
+    font-size:14px;
+    opacity:0.9;
+}
+
+/* CONTAINER */
+.container {
+    max-width:1300px;
+    margin:auto;
+    padding:30px;
+}
+
+/* SEARCH */
+#searchBox {
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    margin:15px 0 25px;
+    font-size:16px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+/* GRID */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+a {
+    text-decoration:none;
+}
+
+/* CARD */
+.card {
+    height:130px;
+    border-radius:20px;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    transition:0.25s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+.icon {
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+/* COLORS */
+.blue {background:linear-gradient(135deg,#1976d2,#42a5f5);}
+.green {background:linear-gradient(135deg,#43a047,#66bb6a);}
+.orange {background:linear-gradient(135deg,#fb8c00,#ffb74d);}
+.red {background:linear-gradient(135deg,#e53935,#ef5350);}
+.purple {background:linear-gradient(135deg,#8e24aa,#ba68c8);}
+.gold {background:linear-gradient(135deg,#c99700,#ffd54f);}
+.teal {background:linear-gradient(135deg,#00897b,#4db6ac);}
+
+/* NOVÉ FARBY */
+.pink {background:linear-gradient(135deg,#d81b60,#f48fb1);}      /* Ružová */
+.navy {background:linear-gradient(135deg,#0d47a1,#1976d2);}      /* Tmavomodrá */
+.cyan {background:linear-gradient(135deg,#00acc1,#26c6da);}      /* Azúrová / Svetlomodrá */
+.lime {background:linear-gradient(135deg,#7cb342,#c0ca33);}      /* Limetková zelená */
+.yellow {background:linear-gradient(135deg,#fdd835,#ffee58);}    /* Žltá */
+.brown {background:linear-gradient(135deg,#6d4c41,#8d6e63);}     /* Hnedá / Bronzová */
+.grey {background:linear-gradient(135deg,#546e7a,#78909c);}      /* Antracitová / Sivá */
+.indigo {background:linear-gradient(135deg,#3f51b5,#7986cb);}    /* Indigo / Tmavo-fialová */
+.coral {background:linear-gradient(135deg,#f4511e,#ff7043);}     /* Koralová / Červeno-oranžová */
+
+h2 {
+    margin-top:40px;
+    color:#333;
+}
+
+/* EXCEL VIEWER BOX */
+.excel-section {
+    background: white;
+    margin-top: 40px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.excel-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-file {
+    background: linear-gradient(135deg, #1565c0, #42a5f5);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+.btn-file:hover {
+    opacity: 0.9;
+}
+
+#excelFileInput {
+    display: none;
+}
+
+#excelSearchBox {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    max-height: 500px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #1565c0;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+tr:nth-child(even) { background-color: #f9f9f9; }
+tr:hover { background-color: #e3f2fd; }
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<img src="icon.png" class="logo">
+<h1>DISPEČING</h1>
+<p>Správa služieb, pracovníkov a evidencie</p>
+<div id="datetime"></div>
+<div id="stats"></div>
+</div>
+
+<div class="container">
+
+<h2>⭐ Najpoužívanejšie</h2>
+
+<input type="text" id="searchBox" placeholder="🔍 Hľadať tabuľku..." onkeyup="searchTiles()">
+
+<div class="grid">
+
+<a href="https://onedrive.live.com/:x:/g/personal/91F41F1C1993D082/IQCCIv_1G85KRK8U5rNf4wDbARTJJm1h0QC8mnLmyuP4Ckk?resid=91F41F1C1993D082!sf5ff2282ce1b444aaf14e6b35fe300db&ithint=file%2Cxlsx&e=1QUcLY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy85MWY0MWYxYzE5OTNkMDgyL0lRQ0NJdl8xRzg1S1JLOFU1ck5mNHdEYkFSVEpKbTFoMFFDOG1uTG15dVA0Q2trP2U9MVFVY0xZ" target="_blank" onclick="countClick('Vilko služby')">
+<div class="card blue tile">
+<div class="icon">📅</div>
+Vilko služby 2026
+</div>
+</a>
+
+<a href="https://1drv.ms/x/c/965DD13CD5F22182/IQDRFZIZ2zqEQqkRDzg8TereAdbt_rIxQP3gxBTrb6XXaMs?e=qo5NE8" target="_blank" onclick="countClick('p. Mizera služby')">
+<div class="card coral tile">
+<div class="icon">📅</div>
+p. Mizera služby 2027
+</div>
+</a>
+
+<a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBQ08fZ6J74RpIAnZo7CkSzAbfoR8gExJH9evfXJDVwKJQ?resid=965DD13CD5F22182!sd9c7d3509ee846f892009d9a3b0a44b3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy85NjVERDEzQ0Q1RjIyMTgyL0lRQlEwOGZaNko3NFJwSUFuWm83Q2tTekFiZm9SOGdFeEpIOWV2ZlhKRFZ3S0pR" target="_blank" onclick="countClick('Letisko')">
+<div class="card gold tile">
+<div class="icon">✈️</div>
+Letisko
+</div>
+</a>
+
+<a href="https://onedrive.live.com/:x:/g/personal/D70040FC5A6A6531/IQDRlB9jywIWQ7d6wzaWvIzFAa9gkTIAntoiiUXDRO9QI64?resid=D70040FC5A6A6531!s631f94d102cb4316b77ac33696bc8cc5&ithint=file%2Cxlsx&e=4Jha5z&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy9kNzAwNDBmYzVhNmE2NTMxL0lRRFJsQjlqeXdJV1E3ZDZ3emFXdkl6RkFhOWdrVElBbnRvaWlVWERSTzlRSTY0P2U9NEpoYTV6" target="_blank" onclick="countClick('kilometre Toyota')">
+<div class="card green tile">
+<div class="icon">📊</div>
+kilometre Toyota
+</div>
+</a>
+
+<a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBlo7sY02O3SJdZDVF0cjx7AcwGvPI155rI7Azm1b6Cgso?resid=965DD13CD5F22182!s18bba36563d348b797590d5174723c7b&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89NjVERDEzQ0Q1RjIyMTgyL0lRQmxvN3NZMDJPM1NKZFpEVkYwY2p4N0Fjd0d2UEkxNTVySTdBem0xYjZDZ3Nv" target="_blank" onclick="countClick('zaraďovanie vozidiel')">
+<div class="card gold tile">
+<div class="icon">🚌</div>
+zaraďovanie vozidiel
+</div>
+</a>
+
+</div>
+
+<h2>📂 Všetky moduly</h2>
+
+<div class="grid">
+
+<a href="https://zeus.dpb.sk/ticket/ticket-assignments" target="_blank" onclick="countClick('ZEUS')">
+<div class="card blue tile">
+<div class="icon">🚌</div>
+ZEUS
+</div>
+</a>
+
+<a href="NAD_20250901.pdf" onclick="countClick('NAD')">
+<div class="card cyan tile">
+<div class="icon">❌</div>
+NAD, linky X
+</div>
+</a>
+
+<a href="Zápisník_Nový_2026_JA.xlsm" onclick="countClick('Zápisník 2026')">
+<div class="card grey tile">
+<div class="icon">📝</div>
+Zápisník 2026
+</div>
+</a>
+
+<a href="NOVÁ Tabuľka ZV.xlsx" onclick="countClick('Tabuľka ZV')">
+<div class="card indigo tile">
+<div class="icon">📝</div>
+Tabuľka ZV
+</div>
+</a>
+
+<a href="https://1drv.ms/x/c/965DD13CD5F22182/IQDOlo2cbwvDSYY3p7CMuSmdAauGFrWma9jZY9yGYwhwfUE?e=MPc3my" target="_blank" onclick="countClick('Pracovnici')">
+<div class="card purple tile">
+<div class="icon">👥</div>
+Pracovníci dispečingu
+</div>
+</a>
+
+<a href="https://1drv.ms/x/c/d70040fc5a6a6531/IQCWdmLx9USmRbfNn2U-KSZkAY_ctFFUuOZKL1DS4yLk004?e=UT8Zti" target="_blank" onclick="countClick('Kalendár služieb')">
+<div class="card red tile">
+<div class="icon">📅</div>
+Kalendár služieb
+</div>
+</a>
+
+<a href="Dovolenkový lístok_v.3.1..xlsx" onclick="countClick('Dovolenkový lístok')">
+<div class="card teal tile">
+<div class="icon">📝</div>
+Dovolenkový lístok
+</div>
+</a>
+
+<a href="preplatenie zdravotné.pdf" onclick="countClick('preplatenie zdravotné')">
+<div class="card red tile">
+<div class="icon">🚑</div>
+Preplatenie zdravotné
+</div>
+</a>
+
+<a href="https://1drv.ms/x/c/965DD13CD5F22182/IQBk5jM6wEO9RofUdSxBTtnYAd-U96fo5m_BbcRKOmVpfZE?e=0naURc" target="_blank" onclick="countClick('Telefónny zoznam')">
+  <div class="card orange tile">
+    <div class="icon">📝</div>
+    Telefónny zoznam
+  </div>
+</a>
+
+<a href="https://chatgpt.com/" target="_blank" onclick="countClick('ChatGPT')">
+  <div class="card coral tile">
+    <div class="icon">📝</div>
+    ChatGPT
+  </div>
+</a>
+
+<a href="Údaje o vozidlách, Protokol MHD+CUDZÍ , správa o nehode v.04 2026.xls" target="_blank" onclick="countClick('   údaje o vozidlách 4/2026')">
+<div class="card purple tile">
+<div class="icon">🚉</div>
+   údaje o vozidlách 4/2026
+</div>
+</a>
+
+<a href="sprava_o_nehode.pdf" target="_blank" onclick="countClick('správa o nehode')">
+<div class="card yellow tile">
+<div class="icon">§</div>
+správa o nehode
+</div>
+</a>
+
+<a href="Rekreačný preukaz.doc" target="_blank" onclick="countClick('Rekreačný poukaz')">
+<div class="card red tile">
+<div class="icon">🌴</div>
+Rekreačný poukaz
+</div>
+</a>
+
+<a href="Čestné prehlásenie - zápisnica.pdf" target="_blank" onclick="countClick('čestné prehlásenie SK')">
+<div class="card blue tile">
+<div class="icon">§</div>
+Čestné prehlásenie SK
+</div>
+</a>
+
+<a href="čestné prehlásenie RUJ.pdf" target="_blank" onclick="countClick('čestné prehlásenie RJ')">
+<div class="card blue tile">
+<div class="icon">§</div>
+Čestné prehlásenie RJ
+</div>
+</a>
+
+</div>
+
+<script>
+function updateTime() {
+    let now = new Date();
+    document.getElementById("datetime").innerHTML =
+        "📅 " + now.toLocaleDateString("sk-SK") +
+        " | 🕒 " + now.toLocaleTimeString("sk-SK");
+}
+setInterval(updateTime,1000);
+updateTime();
+
+/* STATS */
+function countClick(name) {
+    let data = JSON.parse(localStorage.getItem("stats")) || {};
+    data[name] = (data[name] || 0) + 1;
+    localStorage.setItem("stats", JSON.stringify(data));
+    showStats();
+}
+
+function showStats() {
+    let data = JSON.parse(localStorage.getItem("stats")) || {};
+    let output = "📊 Kliknutia: ";
+
+    for (let key in data) {
+        output += key + ": " + data[key] + " | ";
+    }
+
+    document.getElementById("stats").innerHTML = output;
+}
+
+showStats();
+
+/* SEARCH TILES */
+function searchTiles() {
+    let filter = document.getElementById("searchBox").value.toLowerCase();
+    let tiles = document.querySelectorAll(".tile");
+
+    tiles.forEach(tile => {
+        tile.style.display = tile.innerText.toLowerCase().includes(filter) ? "" : "none";
+    });
+
+}
+</script>
+
+</body>
+</html>
