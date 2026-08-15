@@ -12,7 +12,8 @@
 
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dispečing">
 
 <!-- Font Awesome 6 - Moderné plnofarebné ikony -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -75,6 +76,27 @@ body {
     color: var(--accent-color);
 }
 
+/* TLAČIDLO INŠTALÁCIE */
+#installBtn {
+    display: none;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+    align-items: center;
+    gap: 8px;
+}
+
+#installBtn:active {
+    transform: scale(0.98);
+}
+
 /* STATS */
 #stats {
     text-align: center;
@@ -118,6 +140,9 @@ h2 {
     color: var(--text-main);
     font-size: 20px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 /* GRID */
@@ -144,6 +169,8 @@ a {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -162,7 +189,7 @@ a {
     line-height: 1.3;
 }
 
-/* FAREBNÉ DLAŽDICE PRE IKONY */
+/* DLAŽDICA IKONY */
 .icon {
     display: flex;
     align-items: center;
@@ -227,6 +254,7 @@ a {
   <h1>DISPEČING</h1>
   <p>Správa služieb, pracovníkov a evidencie</p>
   <div id="datetime"></div>
+  <button id="installBtn"><i class="fa-solid fa-download"></i> Inštalovať aplikáciu</button>
   <div id="stats"></div>
 </div>
 
@@ -238,7 +266,7 @@ a {
 
   <div class="grid">
 
-    <a href="https://onedrive.live.com/:x:/g/personal/91F41F1C1993D082/IQCCIv_1G85KRK8U5rNf4wDbARTJJm1h0QC8mnLmyuP4Ckk?resid=91F41F1C1993D082!sf5ff2282ce1b444aaf14e6b35fe300db&ithint=file%2Cxlsx&e=1QUcLY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89MWY0MWYxYzE5OTNkMDgyL0lRQ0NJdl8xRzg1S1JLOFU1ck5mNHdEYkFSVEpKbTFoMFFDOG1uTG15dVA0Q2trP2U9MVFVY0xZ" target="_blank" onclick="countClick('Vilko služby')" class="tile">
+    <a href="https://onedrive.live.com/:x:/g/personal/91F41F1C1993D082/IQCCIv_1G85KRK8U5rNf4wDbARTJJm1h0QC8mnLmyuP4Ckk?resid=91F41F1C1993D082!sf5ff2282ce1b444aaf14e6b35fe300db&ithint=file%2Cxlsx&e=1QUcLY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy85MWY0MWYxYzE5OTNkMDgyL0lRQ0NJdl8xRzg1S1JLOFU1ck5mNHdEYkFSVEpKbTFoMFFDOG1uTG15dVA0Q2trP2U9MVFVY0xZ" target="_blank" onclick="countClick('Vilko služby')" class="tile">
       <div class="card blue">
         <div class="icon"><i class="fa-solid fa-calendar-user"></i></div>
         <div class="card-title">Vilko služby 2026</div>
@@ -252,16 +280,16 @@ a {
       </div>
     </a>
 
-    <a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBQ08fZ6J74RpIAnZo7CkSzAbfoR8gExJH9evfXJDVwKJQ?resid=965DD13CD5F22182!sd9c7d3509ee846f892009d9a3b0a44b3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89NjVERDEzQ0Q1RjIyMTgyL0lRQlEwOGZaNko3NFJwSUFuWm83Q2tTekFiZm9SOGdFeExIOWV2ZlhKRFZ3S0pR" target="_blank" onclick="countClick('Letisko')" class="tile">
+    <a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBQ08fZ6J74RpIAnZo7CkSzAbfoR8gExJH9evfXJDVwKJQ?resid=965DD13CD5F22182!sd9c7d3509ee846f892009d9a3b0a44b3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89NjVERDEzQ0Q1RjIyMTgyL0lRQlEwOGZaNko3NFJwSUFuWm83Q2tTekFiZm9SOGdFeEpIOWV2ZlhKRFZ3S0pR" target="_blank" onclick="countClick('Letisko')" class="tile">
       <div class="card gold">
         <div class="icon"><i class="fa-solid fa-plane-departure"></i></div>
         <div class="card-title">Letisko</div>
       </div>
     </a>
 
-    <a href="https://onedrive.live.com/:x:/g/personal/D70040FC5A6A6531/IQDRlB9jywIWQ7d6wzaWvIzFAa9gkTIAntoiiUXDRO9QI64?resid=D70040FC5A6A6531!s631f94d102cb4316b77ac33696bc8cc5&ithint=file%2Cxlsx&e=4Jha5z&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy8kNzAwNDBmYzVhNmE2NTMxL0lRRFJsQjlqeXdJV1E3ZDZ3emFXdkl6RkFhOWdrVElBbnRvaWlVWERSTzlRSTY0P2U9NEpoYTV6" target="_blank" onclick="countClick('kilometre Toyota')" class="tile">
+    <a href="https://onedrive.live.com/:x:/g/personal/D70040FC5A6A6531/IQDRlB9jywIWQ7d6wzaWvIzFAa9gkTIAntoiiUXDRO9QI64?resid=D70040FC5A6A6531!s631f94d102cb4316b77ac33696bc8cc5&ithint=file%2Cxlsx&e=4Jha5z&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy9kNzAwNDBmYzVhNmE2NTMxL0lRRFJsQjlqeXdJV1E3ZDZ3emFXdkl6RkFhOWdrVElBbnRvaWlVWERSTzlRSTY0P2U9NEpoYTV6" target="_blank" onclick="countClick('kilometre Toyota')" class="tile">
       <div class="card green">
-        <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="icon"><i class="fa-solid fa-car"></i></div>
         <div class="card-title">kilometre Toyota</div>
       </div>
     </a>
@@ -281,7 +309,7 @@ a {
 
     <a href="https://zeus.dpb.sk/ticket/ticket-assignments" target="_blank" onclick="countClick('ZEUS')" class="tile">
       <div class="card blue">
-        <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="icon"><i class="fa-solid fa-bus"></i></div>
         <div class="card-title">ZEUS</div>
       </div>
     </a>
@@ -395,6 +423,33 @@ a {
 </div>
 
 <script>
+/* REGISTRÁCIA SERVICE WORKERA PRE PWA INŠTALÁCIU */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log("Service Worker registrovaný!"))
+    .catch(err => console.log("Chyba registrácie SW:", err));
+}
+
+/* LOGIKA PRE INŠTALAČNÉ TLAČIDLO */
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'flex';
+});
+
+installBtn.addEventListener('click', () => {
+  installBtn.style.display = 'none';
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      deferredPrompt = null;
+    });
+  }
+});
+
 function updateTime() {
     let now = new Date();
     document.getElementById("datetime").innerHTML =
