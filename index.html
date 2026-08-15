@@ -266,7 +266,7 @@ a {
 
   <div class="grid">
 
-    <a href="https://onedrive.live.com/:x:/g/personal/91F41F1C1993D082/IQCCIv_1G85KRK8U5rNf4wDbARTJJm1h0QC8mnLmyuP4Ckk?resid=91F41F1C1993D082!sf5ff2282ce1b444aaf14e6b35fe300db&ithint=file%2Cxlsx&e=1QUcLY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy85MWY0MWYxYzE5OTNkMDgyL0lRQ0NJdl8xRzg1S1JLOFU1ck5mNHdEYkFSVEpKbTFoMFFDOG1uTG15dVA0Q2trP2U9MVFVY0xZ" target="_blank" onclick="countClick('Vilko služby')" class="tile">
+    <a href="https://onedrive.live.com/:x:/g/personal/91F41F1C1993D082/IQCCIv_1G85KRK8U5rNf4wDbARTJJm1h0QC8mnLmyuP4Ckk?resid=91F41F1C1993D082!sf5ff2282ce1b444aaf14e6b35fe300db&ithint=file%2Cxlsx&e=1QUcLY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89MDFmNDFmMWMxOTkzZDA4Mi9JUUNDSXZfMUc4NUtSSzhVNWJOZjR3RGJBUlRKSm0xaDBRQzhtbkxteXVQNENraz9lPTFRVWNMWQ" target="_blank" onclick="countClick('Vilko služby')" class="tile">
       <div class="card blue">
         <div class="icon"><i class="fa-solid fa-calendar-user"></i></div>
         <div class="card-title">Vilko služby 2026</div>
@@ -423,9 +423,9 @@ a {
 </div>
 
 <script>
-/* REGISTRÁCIA SERVICE WORKERA PRE PWA INŠTALÁCIU */
+/* REGISTRÁCIA SERVICE WORKERA (service-worker.js) */
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('./service-worker.js')
     .then(() => console.log("Service Worker registrovaný!"))
     .catch(err => console.log("Chyba registrácie SW:", err));
 }
