@@ -113,13 +113,13 @@ body {
     padding: 20px;
 }
 
-/* SEARCH */
-#searchBox {
+/* SEARCH & INPUTS */
+#searchBox, .form-input {
     width: 100%;
     padding: 16px 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
-    margin: 15px 0 25px;
+    margin: 8px 0 15px;
     font-size: 16px;
     background: var(--card-bg);
     color: white;
@@ -129,9 +129,36 @@ body {
     transition: 0.2s;
 }
 
-#searchBox:focus {
+#searchBox:focus, .form-input:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+/* SEKCIA PRE NOVÝ ZÁPIS */
+.zapisnik-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.btn-submit:active {
+    transform: scale(0.98);
 }
 
 h2 {
@@ -244,6 +271,57 @@ a {
 
 .yellow { border-left: 5px solid #facc15; }
 .yellow .icon { background: linear-gradient(135deg, #eab308, #ca8a04); }
+
+/* MODAL PRE ZOBRAZENIE TABUĽKY */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: white;
+}
+
+.modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.modal-table th, .modal-table td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.modal-table th {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.close-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    float: right;
+}
 </style>
 </head>
 
@@ -259,6 +337,14 @@ a {
 </div>
 
 <div class="container">
+
+  <!-- FORMULÁR PRE ZÁPIS DO GOOGLE TABUĽKY -->
+  <div class="zapisnik-box">
+    <h2><i class="fa-solid fa-pen-to-square"></i> Zápis novej udalosti</h2>
+    <input type="text" id="popisUdalosti" class="form-input" placeholder="Opis udalosti (napr. porucha IV. dverí)...">
+    <input type="text" id="poznamkaUdalosti" class="form-input" placeholder="Poznámka / Služba (napr. HAX-50)...">
+    <button class="btn-submit" onclick="posliUdalost()"><i class="fa-solid fa-plus"></i> Zapísať do Google Tabuľky</button>
+  </div>
 
   <h2>⭐ Najpoužívanejšie</h2>
 
@@ -280,7 +366,7 @@ a {
       </div>
     </a>
 
-    <a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBQ08fZ6J74RpIAnZo7CkSzAbfoR8gExJH9evfXJDVwKJQ?resid=965DD13CD5F22182!sd9c7d3509ee846f892009d9a3b0a44b3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89NjVERDEzQ0Q1RjIyMTgyL0lRQlEwOGZaNko3NFJwSUFuWm83Q2tTekFiZm9SOGdFeEpIOWV2ZlhKRFZ3S0pR" target="_blank" onclick="countClick('Letisko')" class="tile">
+    <a href="https://onedrive.live.com/:x:/g/personal/965DD13CD5F22182/IQBQ08fZ6J74RpIAnZo7CkSzAbfoR8gExJH9evfXJDVwKJQ?resid=965DD13CD5F22182!sd9c7d3509ee846f892009d9a3b0a44b3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy89NjVERDEzQ0Q1RjIyMTgyL0lRQlEwOGZaNko3NFJwSUFuWm83Q2tTekFiZm9SOGdFeExIOWV2ZlhKRFZ3S0pR" target="_blank" onclick="countClick('Letisko')" class="tile">
       <div class="card gold">
         <div class="icon"><i class="fa-solid fa-plane-departure"></i></div>
         <div class="card-title">Letisko</div>
@@ -321,10 +407,11 @@ a {
       </div>
     </a>
 
-    <a href="Zápisník_Nový_2026_Richard.xlsm" onclick="countClick('Zápisník 2026')" class="tile">
+    <!-- ZÁPISNÍK 2026 - OTVORÍ NAČÍTANÚ TABUĽKU CZE SCRIPT -->
+    <a href="javascript:void(0)" onclick="otvorZapisnik(); countClick('Zápisník 2026');" class="tile">
       <div class="card grey">
         <div class="icon"><i class="fa-solid fa-book-bookmark"></i></div>
-        <div class="card-title">Zápisník 2026</div>
+        <div class="card-title">Zápisník 2026 (Live)</div>
       </div>
     </a>
 
@@ -398,13 +485,13 @@ a {
       </div>
     </a>
 
-   <a href="https://1drv.ms/w/c/965DD13CD5F22182/IQCkP3MnspNdRoOMzBkx_CRVAacX5FBqhw0sJZl6U6lXYlM?e=dL3tD5" target="_blank" onclick="countClick('Rekreačný poukaz')" class="tile">
-  <div class="card red">
-    <div class="icon"><i class="fa-solid fa-tree"></i></div>
-    <div class="card-title">Rekreačný poukaz</div>
-  </div>
-</a>
-  
+    <a href="https://1drv.ms/w/c/965DD13CD5F22182/IQCkP3MnspNdRoOMzBkx_CRVAacX5FBqhw0sJZl6U6lXYlM?e=dL3tD5" target="_blank" onclick="countClick('Rekreačný poukaz')" class="tile">
+      <div class="card red">
+        <div class="icon"><i class="fa-solid fa-tree"></i></div>
+        <div class="card-title">Rekreačný poukaz</div>
+      </div>
+    </a>
+
     <a href="Čestné prehlásenie - zápisnica.pdf" target="_blank" onclick="countClick('čestné prehlásenie SK')" class="tile">
       <div class="card blue">
         <div class="icon"><i class="fa-solid fa-file-contract"></i></div>
@@ -422,7 +509,20 @@ a {
   </div>
 </div>
 
+<!-- MODAL OKNO PRE ZOBRAZENIE ZÁPISOV -->
+<div id="zapisnikModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="zavriZapisnik()">Zatvoriť</button>
+    <h2>📖 Zápisník 2026 (Live dáta)</h2>
+    <div id="modalData">Načítavam dáta z Google Tabuľky...</div>
+  </div>
+</div>
+
 <script>
+/* NASTAVENIE ADRESY APPS SCRIPTU */
+// SEM VLOŽ SVOJU SKOPÍROVANÚ URL ADRESU, KTORÁ SA KONČÍ NA /exec
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvudqoZN6a8IdCp_-vHUJUvUCmi8Fr9UlUjdgTWJlHjUsYzpO8Z1kDswfAICnrFbMotQ/exec';
+
 /* REGISTRÁCIA SERVICE WORKERA (service-worker.js) */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js')
@@ -490,6 +590,76 @@ function searchTiles() {
     tiles.forEach(tile => {
         tile.style.display = tile.innerText.toLowerCase().includes(filter) ? "" : "none";
     });
+}
+
+/* LOGIKA GOOGLE TABUĽKY (ZÁPIS & NAČÍTANIE) */
+
+async function posliUdalost() {
+  const popis = document.getElementById('popisUdalosti').value.trim();
+  const poznamka = document.getElementById('poznamkaUdalosti').value.trim();
+  
+  if (!popis) {
+    alert("Prosím, zadaj opis udalosti.");
+    return;
+  }
+
+  const cas = new Date().toLocaleTimeString('sk-SK');
+  const datum = new Date().toLocaleDateString('sk-SK');
+  
+  // Riadok, ktorý sa pridá do Google Tabuľky
+  const novyRiadok = [datum, cas, popis, poznamka];
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ riadok: novyRiadok })
+    });
+    
+    alert("Udalosť bola úspešne zapísaná!");
+    document.getElementById('popisUdalosti').value = '';
+    document.getElementById('poznamkaUdalosti').value = '';
+  } catch (error) {
+    console.error('Chyba pri zápise:', error);
+    alert("Nepodarilo sa zapísať udalosť.");
+  }
+}
+
+async function otvorZapisnik() {
+  const modal = document.getElementById('zapisnikModal');
+  const modalData = document.getElementById('modalData');
+  modal.style.display = 'flex';
+  modalData.innerHTML = 'Načítavam dáta z Google Tabuľky...';
+
+  try {
+    const response = await fetch(SCRIPT_URL);
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      let html = '<table class="modal-table">';
+      data.forEach((row, index) => {
+        html += '<tr>';
+        row.forEach(cell => {
+          if (index === 0) {
+            html += `<th>${cell}</th>`;
+          } else {
+            html += `<td>${cell}</td>`;
+          }
+        });
+        html += '</tr>';
+      });
+      html += '</table>';
+      modalData.innerHTML = html;
+    } else {
+      modalData.innerHTML = 'Tabuľka je prázdna.';
+    }
+  } catch (error) {
+    console.error('Chyba pri načítaní:', error);
+    modalData.innerHTML = 'Nepodarilo sa načítať dáta z tabuľky.';
+  }
+}
+
+function zavriZapisnik() {
+  document.getElementById('zapisnikModal').style.display = 'none';
 }
 </script>
 
