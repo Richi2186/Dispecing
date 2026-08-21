@@ -321,8 +321,8 @@ a {
       </div>
     </a>
 
-    <!-- PRIAMY ODKAZ NA TVOJU GOOGLE TABUĽKU -->
-    <a href="https://docs.google.com/spreadsheets/d/1yHSLdMPkt_TBd9XqTJASAYB2op224Y6xFrEWGloRfko/edit?gid=2123065303#gid=2123065303" target="_blank" onclick="countClick('Zápisník 2026')" class="tile">
+    <!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
+    <a href="https://docs.google.com/spreadsheets/d/1yHSLdMPkt_TBd9XqTJASAYB2op224Y6xFrEWGloRfko/edit?gid=2123065303#gid=2123065303" onclick="otvorTabulku(event, this.href, 'Zápisník 2026');" class="tile">
       <div class="card grey">
         <div class="icon"><i class="fa-solid fa-book-bookmark"></i></div>
         <div class="card-title">Zápisník 2026</div>
@@ -424,6 +424,13 @@ a {
 </div>
 
 <script>
+/* FUNKCIA PRE OTVÁRANIE TABUĽKY V SAMOSTATNOM OKNE */
+function otvorTabulku(e, url, name) {
+  e.preventDefault();
+  countClick(name);
+  window.open(url, '_blank', 'width=1600,height=900,menubar=no,toolbar=no,location=no,status=no');
+}
+
 /* REGISTRÁCIA SERVICE WORKERA (service-worker.js) */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js')
