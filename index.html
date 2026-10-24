@@ -21,6 +21,60 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   
 <style>
+  /* Pozadie vyskakovacieho okna */
+.modal-overlay {
+    display: none; /* Predvolene skryté */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Tmavé priesvitné pozadie */
+    backdrop-filter: blur(4px); /* Jemné rozostrenie pozadia */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Telo vyskakovacieho okna */
+.modal-content {
+    background: #111827; /* Tmavé pozadie zhodné s aplikáciou */
+    border: 1px solid #1f2937;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Hlavička okna */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.25rem;
+}
+
+.close-btn {
+    color: #9ca3af;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
 :root {
   --bg-color: #0f172a;
   --card-bg: #1e293b;
@@ -556,7 +610,51 @@ function searchTiles() {
         tile.style.display = tile.innerText.toLowerCase().includes(filter) ? "" : "none";
     });
 }
+
+  <!-- VYSKAKOVACIE OKNO (MODAL) SO SUB-DLAŽDICAMI -->
+<div id="submenuModal" class="modal-overlay" onclick="closeSubmenu(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Ďalšie nástroje</h2>
+            <span class="close-btn" onclick="toggleSubmenu(false)">&times;</span>
+        </div>
+        
+        <!-- Tu sú pod-dlaždice -->
+        <div class="grid-container">
+            
+            <a href="zadelenie zvarači- oktober 2026.xlsx" target="_blank" onclick="countClick('Podmodul 1')" class="tile">
+                <div class="card blue">
+                    <div class="icon"><i class="fa-solid fa-link"></i></div>
+                    <div class="card-title">Podmodul 1</div>
+                </div>
+            </a>
+
+            <a href="https://odkaz2.com" target="_blank" onclick="countClick('Podmodul 2')" class="tile">
+                <div class="card green">
+                    <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="card-title">Podmodul 2</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>
+  
 </script>
+  function openSubmenu() {
+    document.getElementById('submenuModal').style.display = 'flex';
+}
+
+function toggleSubmenu(show) {
+    document.getElementById('submenuModal').style.display = show ? 'flex' : 'none';
+}
+
+// Zatvorenie okna pri kliknutí mimo obsahu
+function closeSubmenu(event) {
+    if (event.target.id === 'submenuModal') {
+        toggleSubmenu(false);
+    }
+}
 
 </body>
 </html>
