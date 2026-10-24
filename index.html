@@ -21,7 +21,15 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   
 <style>
-  /* Pozadie vyskakovacieho okna */
+:root {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-sub: #94a3b8;
+  --accent-color: #38bdf8;
+}
+
+/* Pozadie vyskakovacieho okna */
 .modal-overlay {
     display: none; /* Predvolene skryté */
     position: fixed;
@@ -75,17 +83,20 @@
 .close-btn:hover {
     color: #ffffff;
 }
-:root {
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-  --text-main: #f8fafc;
-  --text-sub: #94a3b8;
-  --accent-color: #38bdf8;
-  /* Prispôsobenie loga v dlaždici pre obdĺžnikový tvar */
+
+/* Prispôsobenie loga v dlaždici pre obdĺžnikový tvar */
 .icon img.icon-logo {
   width: 90%;
   height: auto;
   object-fit: contain;
+}
+
+/* Štýl pre text namiesto ikonky */
+.icon.text-icon {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
 }
 
 body {
@@ -339,14 +350,14 @@ a {
       </div>
     </a>
 
-<a href="https://1drv.ms/x/c/965DD13CD5F22182/IQB5Z3w5GHkLRKBQJpDiqe7YAWSdieNokbA3P-IX5qfqReo?e=bvJ7Fd" target="_blank" onclick="countClick('NED Stn. NM')" class="tile">
+    <a href="https://1drv.ms/x/c/965DD13CD5F22182/IQB5Z3w5GHkLRKBQJpDiqe7YAWSdieNokbA3P-IX5qfqReo?e=bvJ7Fd" target="_blank" onclick="countClick('NED Stn. NM')" class="tile">
       <div class="card red">
         <div class="icon"><i class="fa-solid fa-tram"></i></div>
         <div class="card-title">NED Stn. NM</div>
       </div>
     </a>
 
- <!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
+    <!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
     <a href="https://docs.google.com/spreadsheets/d/1Nrdm4skGfp-zdQ0bfjj1xun29YzuQ0ArhUZzfLZd3YY/edit?gid=0#gid=0" onclick="otvorTabulku(event, this.href, 'Dychové skúšky');" class="tile">
       <div class="card blue">
         <div class="icon"><i class="fa-solid fa-percent"></i></div>
@@ -368,14 +379,14 @@ a {
       </div>
     </a>
 
-   <a href="https://intranet.dpb.sk/" target="_blank" onclick="countClick('Intranet')" class="tile">
-    <div class="card red">
+    <a href="https://intranet.dpb.sk/" target="_blank" onclick="countClick('Intranet')" class="tile">
+      <div class="card red">
         <div class="icon text-icon">DPB</div>
         <div class="card-title">Intranet</div>
-    </div>
-</a>
+      </div>
+    </a>
 
-<a href="http://172.16.20.23/fotografie1/index.php/2026" target="_blank" onclick="countClick('Fotografie')" class="tile">
+    <a href="http://172.16.20.23/fotografie1/index.php/2026" target="_blank" onclick="countClick('Fotografie')" class="tile">
       <div class="card blue">
         <div class="icon"><i class="fa-solid fa-camera"></i></div>
         <div class="card-title">Fotografie</div>
@@ -417,7 +428,7 @@ a {
       </div>
     </a>
 
-<!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
+    <!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
     <a href="https://docs.google.com/spreadsheets/d/1PHyc5oly0aHEinLPd1HaPTa8Vp9FoylLskN0lWFUG6Q/edit?gid=1209255097#gid=1209255097" onclick="otvorTabulku(event, this.href, 'Martin Zápisník 2026');" class="tile">
       <div class="card red">
         <div class="icon"><i class="fa-solid fa-book-bookmark"></i></div>
@@ -425,7 +436,7 @@ a {
       </div>
     </a>
 
-<!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
+    <!-- PRIAMY ODKAZ NA GOOGLE TABUĽKU (OTVÁRA V SAMOSTATNOM OKNE) -->
     <a href="https://docs.google.com/spreadsheets/d/1Vc2E8lQz3KLq9TkLrIjRO5_LwNezA5okHblepaEEPX8/edit?gid=16336865#gid=16336865" onclick="otvorTabulku(event, this.href, 'Vilko Zápisník');" class="tile">
       <div class="card grey">
         <div class="icon"><i class="fa-solid fa-book-bookmark"></i></div>
@@ -440,7 +451,7 @@ a {
       </div>
     </a>
 
- <a href="https://1drv.ms/x/c/d70040fc5a6a6531/IQAFD7EYfwmORr_2Ack14CfFAU3CSTKhXPGaqzYEqUuObjc?e=ND0qHR" target="_blank" onclick="countClick('Tabule TEXT')" class="tile">
+    <a href="https://1drv.ms/x/c/d70040fc5a6a6531/IQAFD7EYfwmORr_2Ack14CfFAU3CSTKhXPGaqzYEqUuObjc?e=ND0qHR" target="_blank" onclick="countClick('Tabule TEXT')" class="tile">
       <div class="card yellow">
         <div class="icon"><i class="fa-solid fa-users-gear"></i></div>
         <div class="card-title"> Tabule TEXT</div>
@@ -483,19 +494,19 @@ a {
     </a>
 
     <a href="https://chatgpt.com/?q=Prelo%C5%BE%20zo%20sloven%C4%8Diny%20do%20angli%C4%8Dtiny%20s%20dopravnou%20terminol%C3%B3giou%20a%2024-hodinov%C3%BDm%20form%C3%A1tom%20%C4%8dasu,%20neprekladaj%20n%C3%A1zvy%20ul%C3%ADc,%20n%C3%A1mest%C3%AD%20a%20zast%C3%A1vok,%20nepou%C5%BE%C3%ADvaj%20nedelite%C4%BEn%C3%A9%20medzery%20a%20dlh%C3%A9%20poml%C4%8Dky,%20skontroluj%20po%20sebe%20n%C3%A1zvy%20zast%C3%A1vok%20a%20gramatiku:" target="_blank" onclick="countClick('ChatGPT')" class="tile">
-  <div class="card coral">
-    <div class="icon"><i class="fa-solid fa-robot"></i></div>
-    <div class="card-title">ChatGPT</div>
-  </div>
-</a>
+      <div class="card coral">
+        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+        <div class="card-title">ChatGPT</div>
+      </div>
+    </a>
 
-<a href="https://1drv.ms/x/c/965DD13CD5F22182/IQB8qE7q-uYiRapZ2ucy98XjAfAPPsfEWirOdzDCuIF7FBs?e=bk8Z1j" target="_blank" onclick="countClick('Tabule _ Preklad')" class="tile">
+    <a href="https://1drv.ms/x/c/965DD13CD5F22182/IQB8qE7q-uYiRapZ2ucy98XjAfAPPsfEWirOdzDCuIF7FBs?e=bk8Z1j" target="_blank" onclick="countClick('Tabule _ Preklad')" class="tile">
       <div class="card red">
         <div class="icon"><i class="fa-solid fa-address-book"></i></div>
         <div class="card-title">Tabule _ Preklad</div>
       </div>
     </a>
-    
+
     <a href="Údaje o vozidlách, Protokol MHD+CUDZÍ , správa o nehode v.20260930.xls" target="_blank" onclick="countClick('údaje o vozidlách 9/2026')" class="tile">
       <div class="card purple">
         <div class="icon"><i class="fa-solid fa-car-side"></i></div>
@@ -531,7 +542,44 @@ a {
       </div>
     </a>
 
+    <!-- DLAŽDICA NA OTVORENIE PODMENU (NOVÁ) -->
+    <div class="tile" onclick="openSubmenu()">
+      <div class="card purple">
+        <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
+        <div class="card-title">Ďalšie nástroje</div>
+      </div>
+    </div>
+
   </div>
+</div>
+
+<!-- VYSKAKOVACIE OKNO (MODAL) SO SUB-DLAŽDICAMI -->
+<div id="submenuModal" class="modal-overlay" onclick="closeSubmenu(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Ďalšie nástroje</h2>
+            <span class="close-btn" onclick="toggleSubmenu(false)">&times;</span>
+        </div>
+        
+        <!-- Tu sú pod-dlaždice -->
+        <div class="grid">
+            
+            <a href="zadelenie zvarači- oktober 2026.xlsx" target="_blank" onclick="countClick('Zadelenie zvárači')" class="tile">
+                <div class="card blue">
+                    <div class="icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="card-title">Zadelenie zvárači</div>
+                </div>
+            </a>
+
+            <a href="https://odkaz2.com" target="_blank" onclick="countClick('Podmodul 2')" class="tile">
+                <div class="card green">
+                    <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="card-title">Podmodul 2</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
 </div>
 
 <script>
@@ -611,37 +659,8 @@ function searchTiles() {
     });
 }
 
-  <!-- VYSKAKOVACIE OKNO (MODAL) SO SUB-DLAŽDICAMI -->
-<div id="submenuModal" class="modal-overlay" onclick="closeSubmenu(event)">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Ďalšie nástroje</h2>
-            <span class="close-btn" onclick="toggleSubmenu(false)">&times;</span>
-        </div>
-        
-        <!-- Tu sú pod-dlaždice -->
-        <div class="grid-container">
-            
-            <a href="zadelenie zvarači- oktober 2026.xlsx" target="_blank" onclick="countClick('Podmodul 1')" class="tile">
-                <div class="card blue">
-                    <div class="icon"><i class="fa-solid fa-link"></i></div>
-                    <div class="card-title">Podmodul 1</div>
-                </div>
-            </a>
-
-            <a href="https://odkaz2.com" target="_blank" onclick="countClick('Podmodul 2')" class="tile">
-                <div class="card green">
-                    <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
-                    <div class="card-title">Podmodul 2</div>
-                </div>
-            </a>
-
-        </div>
-    </div>
-</div>
-  
-</script>
-  function openSubmenu() {
+/* FUNKCIE PRE PODMENU (VYSKAKOVACIE OKNO) */
+function openSubmenu() {
     document.getElementById('submenuModal').style.display = 'flex';
 }
 
@@ -649,12 +668,12 @@ function toggleSubmenu(show) {
     document.getElementById('submenuModal').style.display = show ? 'flex' : 'none';
 }
 
-// Zatvorenie okna pri kliknutí mimo obsahu
 function closeSubmenu(event) {
     if (event.target.id === 'submenuModal') {
         toggleSubmenu(false);
     }
 }
+</script>
 
 </body>
 </html>
