@@ -279,6 +279,9 @@ a {
 }
 
 /* FAREBNÉ ŠTÝLE PRE JEDNOTLIVÉ IKONY A PÁSIKY */
+.ice-blue { border-left: 5px solid #7dd3fc; }
+.ice-blue .icon { background: linear-gradient(135deg, #7dd3fc, #38bdf8); color: #082f49; }
+
 .blue { border-left: 5px solid #3b82f6; }
 .blue .icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
 
@@ -400,12 +403,20 @@ a {
       </div>
     </a>
     
-<a href="https://onedrive.live.com/?id=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments%2FDokumenty%2FVzor%20odklonov%20od%209%2E8%2E2026%2Epdf&listurl=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments&ithint=file%2Cpdf&migratedtospo=true&parent=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments%2FDokumenty&redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy9kNzAwNDBmYzVhNmE2NTMxL0lRQTF1QV9RXzNFbFM1TWNBTEhiTEFrdkFYOC1ldlBWczRFdzZKQ0o1N20yMXU0&ga=1" target="_blank" onclick="countClick('zaraďovanie vozidiel')" class="tile">
+    <a href="https://onedrive.live.com/?id=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments%2FDokumenty%2FVzor%20odklonov%20od%209%2E8%2E2026%2Epdf&listurl=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments&ithint=file%2Cpdf&migratedtospo=true&parent=%2Fpersonal%2Fd70040fc5a6a6531%2FDocuments%2FDokumenty&redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy9kNzAwNDBmYzVhNmE2NTMxL0lRQTF1QV9RXzNFbFM1TWNBTEhiTEFrdkFYOC1ldlBWczRFdzZKQ0o1N20yMXU0&ga=1" target="_blank" onclick="countClick('Vzor odklonov E')" class="tile">
       <div class="card red">
         <div class="icon"><i class="fa-solid fa-tram"></i></div>
         <div class="card-title">Vzor odklonov E</div>
       </div>
     </a>
+
+    <!-- DLAŽDICA ZIMNÁ SLUŽBA 2026/2027 (BLEDOMODRA + SNEHOVÁ VLOČKA) -->
+    <div class="tile" onclick="openZimnaSluzbaSubmenu()">
+      <div class="card ice-blue">
+        <div class="icon"><i class="fa-solid fa-snowflake"></i></div>
+        <div class="card-title">Zimná služba 2026/2027</div>
+      </div>
+    </div>
     
   </div>
 
@@ -487,7 +498,7 @@ a {
       </div>
     </a>
 
-<a href="https://1drv.ms/x/c/d70040fc5a6a6531/IQDqiHkhx9-MQLq8Fn-RWwPQAT4CbHx2WIoU2-wv2kgZ5s0?e=09kmBg" target="_blank" onclick="countClick('Kalendár služieb 2027')" class="tile">
+    <a href="https://1drv.ms/x/c/d70040fc5a6a6531/IQDqiHkhx9-MQLq8Fn-RWwPQAT4CbHx2WIoU2-wv2kgZ5s0?e=09kmBg" target="_blank" onclick="countClick('Kalendár služieb 2027')" class="tile">
       <div class="card red">
         <div class="icon"><i class="fa-solid fa-calendar-check"></i></div>
         <div class="card-title">Kalendár služieb 2027</div>
@@ -575,6 +586,48 @@ a {
   </div>
 </div>
 
+<!-- VYSKAKOVACIE OKNO (MODAL) PRE ZIMNÚ SLUŽBU 2026/2027 -->
+<div id="zimnaSluzbaModal" class="modal-overlay" onclick="closeZimnaSluzbaSubmenu(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>❄️ Zimná služba 2026/2027</h2>
+            <span class="close-btn" onclick="toggleZimnaSluzbaSubmenu(false)">&times;</span>
+        </div>
+        
+        <div class="grid">
+            
+            <a href="DOPLŇ_ODKAZ_1" target="_blank" onclick="countClick('Zimná služba - Súbor 1')" class="tile">
+                <div class="card ice-blue">
+                    <div class="icon"><i class="fa-solid fa-snowflake"></i></div>
+                    <div class="card-title">DOPLŇ NÁZOV SÚBORU 1</div>
+                </div>
+            </a>
+
+            <a href="DOPLŇ_ODKAZ_2" target="_blank" onclick="countClick('Zimná služba - Súbor 2')" class="tile">
+                <div class="card blue">
+                    <div class="icon"><i class="fa-solid fa-file-excel"></i></div>
+                    <div class="card-title">DOPLŇ NÁZOV SÚBORU 2</div>
+                </div>
+            </a>
+
+            <a href="DOPLŇ_ODKAZ_3" target="_blank" onclick="countClick('Zimná služba - Súbor 3')" class="tile">
+                <div class="card cyan">
+                    <div class="icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="card-title">DOPLŇ NÁZOV SÚBORU 3</div>
+                </div>
+            </a>
+
+            <a href="DOPLŇ_ODKAZ_4" target="_blank" onclick="countClick('Zimná služba - Súbor 4')" class="tile">
+                <div class="card ice-blue">
+                    <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="card-title">DOPLŇ NÁZOV SÚBORU 4</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>
+
 <!-- VYSKAKOVACIE OKNO (MODAL) SO SUB-DLAŽDICAMI -->
 <div id="submenuModal" class="modal-overlay" onclick="closeSubmenu(event)">
     <div class="modal-content">
@@ -598,51 +651,58 @@ a {
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">prac. pohotovosť November</div>
                 </div>
+            </a>
 
-              <a href="https://docs.google.com/document/d/1wh59ysHQE4b2wX66KVFICZi_Zb7yFx6Y/edit" target="_blank" onclick="countClick('cenník zastávky')" class="tile">
+            <a href="https://docs.google.com/document/d/1wh59ysHQE4b2wX66KVFICZi_Zb7yFx6Y/edit" target="_blank" onclick="countClick('cenník zastávky')" class="tile">
                 <div class="card orange">
                     <div class="icon"><i class="fa-solid fa-euro-sign"></i></div>
                     <div class="card-title">cenník zastávky</div>
                 </div>
             </a>
 
-                <a href="T6A5 čierne skrinky.xlsx" target="_blank" onclick="countClick('T6A5 čierna skrinka')" class="tile">
+            <a href="T6A5 čierne skrinky.xlsx" target="_blank" onclick="countClick('T6A5 čierna skrinka')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">T6A5 čierne skrinky</div>
                 </div>
+            </a>
 
-                  <a href="VIP správy.docx" target="_blank" onclick="countClick('VIP správy')" class="tile">
+            <a href="VIP správy.docx" target="_blank" onclick="countClick('VIP správy')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">VIP správy</div>
                 </div>
+            </a>
 
-                    <a href="Zoznam_automatov_k_20.11.2026.xlsx" target="_blank" onclick="countClick('Zoznam automatov 11/26')" class="tile">
+            <a href="Zoznam_automatov_k_20.11.2026.xlsx" target="_blank" onclick="countClick('Zoznam automatov 11/26')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">Zoznam automatov 11/26</div>
                 </div>
+            </a>
 
-                      <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
+            <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">Podmodul 6</div>
                 </div>
+            </a>
 
-                        <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
+            <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">Podmodul 7</div>
                 </div>
+            </a>
 
-                          <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
+            <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">Podmodul 8</div>
                 </div>
+            </a>
 
-                            <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
+            <a href="TU VPÍŠ" target="_blank" onclick="countClick('TU VPÍŠ')" class="tile">
                 <div class="card green">
                     <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                     <div class="card-title">Podmodul 9</div>
@@ -728,6 +788,21 @@ function searchTiles() {
     tiles.forEach(tile => {
         tile.style.display = tile.innerText.toLowerCase().includes(filter) ? "" : "none";
     });
+}
+
+/* FUNKCIE PRE PODMENU ZIMNÁ SLUŽBA 2026/2027 */
+function openZimnaSluzbaSubmenu() {
+    document.getElementById('zimnaSluzbaModal').style.display = 'flex';
+}
+
+function toggleZimnaSluzbaSubmenu(show) {
+    document.getElementById('zimnaSluzbaModal').style.display = show ? 'flex' : 'none';
+}
+
+function closeZimnaSluzbaSubmenu(event) {
+    if (event.target.id === 'zimnaSluzbaModal') {
+        toggleZimnaSluzbaSubmenu(false);
+    }
 }
 
 /* FUNKCIE PRE PODMENU (VYSKAKOVACIE OKNO) */
